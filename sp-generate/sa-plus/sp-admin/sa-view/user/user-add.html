@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>用户表-添加/修改</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- 所有的 css js 资源 -->
+		<link rel="stylesheet" href="../../static/kj/element-ui/theme-chalk/index.css">
+		<link rel="stylesheet" href="../../static/sa.css">
+		<script src="../../static/kj/vue.min.js"></script>
+		<script src="../../static/kj/element-ui/index.js"></script>
+		<script src="../../static/kj/httpVueLoader.js"></script>
+		<script src="../../static/kj/jquery.min.js"></script>
+		<script src="../../static/kj/layer/layer.js"></script>
+		<script src="../../static/sa.js"></script>
+		<style type="text/css">
+			.c-panel .el-form .c-label{width: 7em !important;}
+			.c-panel .el-form .el-input, .c-panel .el-form .el-textarea__inner{width: 250px;}
+		</style>
+	</head>
+	<body>
+		<div class="vue-box" :class="{sbot: id}" style="display: none;" :style="'display: block;'">
+			<!-- ------- 内容部分 ------- -->
+			<div class="s-body">
+				<div class="c-panel">
+                    <div class="c-title" v-if="id == 0">数据添加</div>
+					<div class="c-title" v-else>数据修改</div>
+					<el-form v-if="m">
+						<sa-item type="text" name="主键id" v-model="m.id" br></sa-item>
+						<sa-item type="text" name="用户名" v-model="m.username" br></sa-item>
+						<sa-item type="text" name="密码" v-model="m.password" br></sa-item>
+						<sa-item type="text" name="创建人" v-model="m.createBy" br></sa-item>
+						<sa-item type="text" name="创建时间" v-model="m.createTime" br></sa-item>
+						<sa-item type="text" name="更新人" v-model="m.updateBy" br></sa-item>
+						<sa-item type="text" name="更新时间" v-model="m.updateTime" br></sa-item>
+						<sa-item name="" class="s-ok" br>
+							<el-button type="primary" icon="el-icon-plus" @click="ok()">保存</el-button>
+						</sa-item>
+					</el-form>
+				</div>
+			</div>
+			<!-- ------- 底部按钮 ------- -->
+			<div class="s-foot">
+				<el-button type="primary" @click="ok()">确定</el-button>
+				<el-button @click="sa.closeCurrIframe()">取消</el-button>
+			</div>
+		</div>
+        <script>
+			
+			var app = new Vue({
+				components: {
+					"sa-item": httpVueLoader('../../sa-frame/com/sa-item.vue')
+				},
+				el: '.vue-box',
+				data: {
+					id: sa.p('id', 0),		// 获取超链接中的id参数（0=添加，非0=修改） 
+					m: null,		// 实体对象 
+				},
+				methods: {
+					// 创建一个 默认Model 
+					createModel: function() {
+						return {
+							id: '',		// 主键id 
+							username: '',		// 用户名 
+							password: '',		// 密码 
+							createBy: '',		// 创建人 
+							createTime: '',		// 创建时间 
+							updateBy: '',		// 更新人 
+							updateTime: '',		// 更新时间 
+						}
+					},
+					// 提交数据 
+					ok: function(){
+						// 表单校验 
+						let m = this.m;
+						sa.checkNull(m.id, '请输入 [主键id]');
+						sa.checkNull(m.username, '请输入 [用户名]');
+						sa.checkNull(m.password, '请输入 [密码]');
+						sa.checkNull(m.createBy, '请输入 [创建人]');
+						sa.checkNull(m.createTime, '请输入 [创建时间]');
+						sa.checkNull(m.updateBy, '请输入 [更新人]');
+						sa.checkNull(m.updateTime, '请输入 [更新时间]');
+				
+						// 开始增加或修改
+						if(this.id <= 0) {	// 添加
+							sa.ajax('/User/add', m, function(res){
+								sa.alert('增加成功', this.clean); 
+							}.bind(this));
+						} else {	// 修改
+							sa.ajax('/User/update', m, function(res){
+								sa.alert('修改成功', this.clean);
+							}.bind(this));
+						}
+					},
+					// 添加/修改 完成后的动作
+					clean: function() {
+						if(this.id == 0) {
+							this.m = this.createModel();
+						} else {
+							parent.app.f5();		// 刷新父页面列表
+							sa.closeCurrIframe();	// 关闭本页 
+						}
+					}
+				},
+				mounted: function(){
+					// 初始化数据 
+					if(this.id <= 0) {	
+						this.m = this.createModel();
+					} else {	
+						sa.ajax('/User/getById?id=' + this.id, function(res) {
+							this.m = res.data;
+							if(res.data == null) {
+								sa.alert('未能查找到 id=' + this.id + " 详细数据");
+							}
+						}.bind(this))
+					}
+				}
+			})
+			
+		</script>
+	</body>
+</html>

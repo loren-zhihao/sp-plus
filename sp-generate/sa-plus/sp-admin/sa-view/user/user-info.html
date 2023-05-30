@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>用户表-详情</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- 所有的 css js 资源 -->
+		<link rel="stylesheet" href="../../static/kj/element-ui/theme-chalk/index.css">
+		<link rel="stylesheet" href="../../static/sa.css">
+		<script src="../../static/kj/vue.min.js"></script>
+		<script src="../../static/kj/element-ui/index.js"></script>
+		<script src="../../static/kj/httpVueLoader.js"></script>
+		<script src="../../static/kj/jquery.min.js"></script>
+		<script src="../../static/kj/layer/layer.js"></script>
+		<script src="../../static/sa.js"></script>
+		<style type="text/css">
+			.c-panel .c-label{width: 8em;}
+		</style>
+	</head>
+	<body>
+		<div class="vue-box sbot" style="display: none;" :style="'display: block;'">
+			<!-- ------- 内容部分 ------- -->
+			<div class="s-body">
+				<div class="c-panel">
+					<el-form v-if="m">
+						<sa-info name="主键id" br>{{m.id}}</sa-info>
+						<sa-info name="用户名" br>{{m.username}}</sa-info>
+						<sa-info name="密码" br>{{m.password}}</sa-info>
+						<sa-info name="创建人" br>{{m.createBy}}</sa-info>
+						<sa-info name="创建时间" br>{{m.createTime}}</sa-info>
+						<sa-info name="更新人" br>{{m.updateBy}}</sa-info>
+						<sa-info name="更新时间" br>{{m.updateTime}}</sa-info>
+					</el-form>
+				</div>
+			</div>
+			<!-- ------- 底部按钮 ------- -->
+			<div class="s-foot">
+				<el-button type="success" @click="sa.closeCurrIframe()">确定</el-button>
+				<el-button @click="sa.closeCurrIframe()">取消</el-button>
+			</div>
+		</div>
+		<script>
+			var app = new Vue({
+				components: {
+					"sa-info": httpVueLoader('../../sa-frame/com/sa-info.vue')
+				},
+				el: '.vue-box',
+				data: {
+					id: sa.p('id', 0),	// 获取数据ID 
+					m: null
+				},
+				methods: {
+				},
+				mounted: function() {
+					sa.ajax('/User/getById?id=' + this.id, function(res) {
+						this.m = res.data;
+						if(res.data == null) {
+							sa.alert('未能查找到 id=' + this.id + " 详细数据");
+						}
+					}.bind(this))
+				}
+			})
+			
+		</script>
+	</body>
+</html>
