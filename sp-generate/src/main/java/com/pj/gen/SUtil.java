@@ -38,6 +38,10 @@ public class SUtil {
 		return str.substring(0, 1).toUpperCase() + str.substring(1, str.length());
 	}
 
+	public static String wordFullBig(String str) {
+		return str.toUpperCase();
+	}
+
 	// 将指定单词首字母小写;
 	public static String wordFirstSmall(String str) {
 		return str.substring(0, 1).toLowerCase() + str.substring(1, str.length());

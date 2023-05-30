@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
+import com.pj.current.satoken.AuthConst;
 import com.pj.utils.sg.*;
 import com.pj.utils.so.*;
-import com.pj.project4sp.SP;
+import com.pj.project.SP;
 
 import com.pj.current.satoken.StpUserUtil;
 <#if cfg.saTokenAuthWay == 1 >import cn.dev33.satoken.stp.StpUtil;
@@ -21,7 +21,7 @@ import com.pj.current.satoken.StpUserUtil;
  * @author ${cfg.author} 
  */
 @RestController
-@RequestMapping("/${t.mkNameBig}/")
+@RequestMapping("/${t.varName}/")
 public class ${t.mkNameBig}Controller {
 
 	/** 底层 Service 对象 */
@@ -30,10 +30,10 @@ public class ${t.mkNameBig}Controller {
 
 	/** 增 */  
 	@${cfg.apiMappingWayString}("add")
-<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(${t.modelName}.PERMISSION_CODE)${cfg.line}</#if><#rt>
+<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(AuthConst.${t.mkNameFullBig}_ADD)${cfg.line}</#if><#rt>
 	@Transactional(rollbackFor = Exception.class)
 	public AjaxJson add(${t.modelName} ${t.varNameSimple}){
-<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(${t.modelName}.PERMISSION_CODE);${cfg.line}</#if><#rt>
+<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(AuthConst.${t.mkNameFullBig}_ADD);${cfg.line}</#if><#rt>
 		${t.varName}Service.add(${t.varNameSimple});
 		${t.varNameSimple} = ${t.varName}Service.getById(SP.publicMapper.getPrimarykey());
 		return AjaxJson.getSuccessData(${t.varNameSimple});
@@ -41,18 +41,18 @@ public class ${t.mkNameBig}Controller {
 
 	/** 删 */  
 	@${cfg.apiMappingWayString}("delete")
-<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(${t.modelName}.PERMISSION_CODE)${cfg.line}</#if><#rt>
+<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(AuthConst.${t.mkNameFullBig}_DELETE)${cfg.line}</#if><#rt>
 	public AjaxJson delete(${t.primaryKey.fieldType} id){
-<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(${t.modelName}.PERMISSION_CODE);${cfg.line}</#if><#rt>
+<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(AuthConst.${t.mkNameFullBig}_DELETE);${cfg.line}</#if><#rt>
 		int line = ${t.varName}Service.delete(id);
 		return AjaxJson.getByLine(line);
 	}
 	
 	/** 删 - 根据id列表 */  
 	@${cfg.apiMappingWayString}("deleteByIds")
-<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(${t.modelName}.PERMISSION_CODE)${cfg.line}</#if><#rt>
+<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(AuthConst.${t.mkNameFullBig}_DELETE_BY_IDS)${cfg.line}</#if><#rt>
 	public AjaxJson deleteByIds(){
-<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(${t.modelName}.PERMISSION_CODE);${cfg.line}</#if><#rt>
+<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(AuthConst.${t.mkNameFullBig}_DELETE_BY_IDS);${cfg.line}</#if><#rt>
 		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class); 
 		int line = SP.publicMapper.deleteByIds(${t.modelName}.TABLE_NAME, ids);
 		return AjaxJson.getByLine(line);
@@ -60,23 +60,27 @@ public class ${t.mkNameBig}Controller {
 	
 	/** 改 */  
 	@${cfg.apiMappingWayString}("update")
-<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(${t.modelName}.PERMISSION_CODE)${cfg.line}</#if><#rt>
+<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(AuthConst.${t.mkNameFullBig}_UPDATE)${cfg.line}</#if><#rt>
 	public AjaxJson update(${t.modelName} ${t.varNameSimple}){
-<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(${t.modelName}.PERMISSION_CODE);${cfg.line}</#if><#rt>
+<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(AuthConst.${t.mkNameFullBig}_UPDATE);${cfg.line}</#if><#rt>
 		int line = ${t.varName}Service.update(${t.varNameSimple});
 		return AjaxJson.getByLine(line);
 	}
 
 	/** 查 - 根据id */  
 	@${cfg.apiMappingWayString}("getById")
+<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(AuthConst.${t.mkNameFullBig}_GETBY＿ID)${cfg.line}</#if><#rt>
 	public AjaxJson getById(${t.primaryKey.fieldType} id){
+<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(AuthConst.${t.mkNameFullBig}_GETBY＿ID);${cfg.line}</#if><#rt>
 		${t.modelName} ${t.varNameSimple} = ${t.varName}Service.getById(id);
 		return AjaxJson.getSuccessData(${t.varNameSimple});
 	}
 
 	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */  
 	@${cfg.apiMappingWayString}("getList")
-	public AjaxJson getList() { 
+<#if cfg.saTokenAuthWay == 2 >	@SaCheckPermission(AuthConst.${t.mkNameFullBig}_GETLIST)${cfg.line}</#if><#rt>
+	public AjaxJson getList() {
+<#if cfg.saTokenAuthWay == 1 >		StpUtil.checkPermission(AuthConst.${t.mkNameFullBig}_GETLIST);${cfg.line}</#if><#rt>
 		SoMap so = SoMap.getRequestSoMap();
 <#if t.hasFo("logic-delete")>		so.set("${t.getDbColumnByFoType('logic-delete').fieldName}", ${t.getDbColumnByFoType('logic-delete').tx.yes});
 </#if>

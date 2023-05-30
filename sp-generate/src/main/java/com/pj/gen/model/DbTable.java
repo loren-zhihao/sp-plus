@@ -236,6 +236,10 @@ public class DbTable {
 		return SUtil.wordEachBig(getMkName());
 	}
 
+	public String getMkNameFullBig(){	// 返回模块名 驼峰大写形式  [mkNameBig]
+		return SUtil.wordFullBig(getMkName());
+	}
+
 	// ---------- 实体类名(模块名下划线转大驼峰) [modelName]【只读】  
 	public String getModelName(){
 		return getMkNameBig();

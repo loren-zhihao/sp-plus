@@ -22,10 +22,11 @@ public class SpGenerateApplication {
 
 		// ===================================  设置连接信息  =================================== 
         FlyConfig config = new FlyConfig();
-        config.setDriverClassName("com.mysql.jdbc.Driver");
-        config.setUrl("jdbc:mysql://127.0.0.1:3306/sp-dev?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC");
+//        config.setDriverClassName("com.mysql.jdbc.Driver");
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        config.setUrl("jdbc:mysql://182.92.153.115:3306/sp-dev?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC");
         config.setUsername("root");
-        config.setPassword("root123456");
+        config.setPassword("123456");
         config.setPrintSql(true);		// 是否打印sql  
         FlyObjects.setConfig(config);    // 注入到框架中 
         // ！！！注意：如果报错创建连接失败，可尝试将连接字符串中的 useSSL=true 改为 useSSL=false 
@@ -37,13 +38,14 @@ public class SpGenerateApplication {
 		
 		// ===================================  一些全局设置  =================================== 
 		GenCfgManager.cfg
-			.setProjectPath("E:/work/project-yun/sa-plus/")	// 总项目地址 (生成代码的路径) 
-	        .setServerProjectName("sp-server")				// 服务端 - 项目名称 
+//			.setProjectPath("E:/work/project-yun/sa-plus/")	// 总项目地址 (生成代码的路径)
+			.setProjectPath("./sa-plus/")	// 总项目地址 (生成代码的路径)
+	        .setServerProjectName("sp-server")				// 服务端 - 项目名称
 //	        .setServerProjectName("sp-com/sp-core")			// 服务端 - 项目名称 (sp-com多模块版填此格式)
 	        .setCodePath("src/main/java/")					// 服务端代码 - 存放路径 
 	        .setPackagePath( "com.pj.project")				// 服务端代码 - 总包名 
 	        .setPackage_utils("com.pj.utils.sg.*")			// 服务端代码 - util类包地址 
-	        .setAuthor("shengzhang")						// 服务端代码 - 代码作者 (一定要换成您的大名哦，哈哈)
+	        .setAuthor("lizhihao")						// 服务端代码 - 代码作者 (一定要换成您的大名哦，哈哈)
 	        .setAdminProjectName("sp-admin")				// 后台管理 - 项目名称 
             .setAdminCodePath("sa-view/")					// 后台管理-代码存放目录 
 	        .setApidocProjectName("sp-apidoc") 				// 接口文档 - 项目名称 
@@ -63,9 +65,10 @@ public class SpGenerateApplication {
 			.setMybatisPlus(false)			// 是否生成的代码遵循mybatis-plus风格(继承一些mp的特定父类)
 			.setOutFC(true)					// 是否输出FC.java工厂类 
 			.setDefaultMeunIcon("el-icon-folder-opened")	// 生成后台管理页面时，默认的菜单图标
-			.setWebLibImportWay(1) 			// 前端js库导入方式(1=cdn导入, 2=本地导入[需将sa-admin附带js包复制到kj文件夹])
-			// .addTableName("sys_user")	// 添加要生成的表 (单个添加)
-			.addTableAll()		// 添加要生成的表 (一次性添加所有表)
+			.setWebLibImportWay(2) 			// 前端js库导入方式(1=cdn导入, 2=本地导入[需将sa-admin附带js包复制到kj文件夹])
+			.addTableName("category")	// 添加要生成的表 (单个添加)
+			.addTableName("password")	// 添加要生成的表 (单个添加)
+//			.addTableAll()		// 添加要生成的表 (一次性添加所有表)
             .removeTableName("sp_role", "sp_role_permission", "sp_admin", "sp_admin_login", "sp_apilog", "sp_cfg")	// 移除这些内置的表，不必生成代码
             ; 
 		
@@ -75,8 +78,9 @@ public class SpGenerateApplication {
 		// ===================================  开始读取并输出   =================================== 
 		GenUtil.doRead();	// 从数据库读取数据 
 		GenUtil.doOutMyBatis();	// 输出java代码 （mybatis版本） 
-//		GenUtil.doOutMyBatisService();	// 输出java代码 - 追加service层 
-		GenUtil.doOutAdminHtml();	// 输出 admin后台管理页面  
+		GenUtil.doOutMyBatisService();	// 输出java代码 - 追加service层
+		GenUtil.doOutVue();
+//		GenUtil.doOutAdminHtml();	// 输出 admin后台管理页面
 		GenUtil.doOutApidoc();	// 输出 接口文档页面 
 		
 

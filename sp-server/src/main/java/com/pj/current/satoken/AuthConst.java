@@ -38,7 +38,28 @@ public final class AuthConst {
 	public static final String SP_CFG_APP = "sp-cfg-app";		  	 // 系统配置 - 系统对公配置
 	public static final String SP_CFG_SERVER = "sp-cfg-server";		   // 系统配置 - 服务器私有配置
 
-	
+	public static final String USER_ADD = "user-add";
+	public static final String USER_DELETE = "user-delete";
+	public static final String USER_DELETE_BY_IDS = "user-deleteByIds";
+	public static final String USER_UPDATE = "user-update";
+	public static final String USER_GETBY＿ID = "user-getById";
+	public static final String USER_GETLIST = "user-list";
+
+	public static final String CATEGORY_ADD = "category-add";
+	public static final String CATEGORY_DELETE = "category-delete";
+	public static final String CATEGORY_DELETE_BY_IDS = "category-deleteByIds";
+	public static final String CATEGORY_UPDATE = "category-update";
+	public static final String CATEGORY_GETBY＿ID = "category-getById";
+	public static final String CATEGORY_GETLIST = "category-list";
+	public static final String CATEGORY_GETINFO = "category-info";
+
+	public static final String PASSWORD_ADD = "password-add";
+	public static final String PASSWORD_DELETE = "password-delete";
+	public static final String PASSWORD_DELETE_BY_IDS = "password-deleteByIds";
+	public static final String PASSWORD_UPDATE = "password-update";
+	public static final String PASSWORD_GETBY＿ID = "password-getById";
+	public static final String PASSWORD_GETLIST = "password-list";
+	public static final String PASSWORD_INFO = "password-info";
 	// --------------- 其它常量 --------------- 
 	
 	/** 在 SaSession 上存储 角色id 使用的key */

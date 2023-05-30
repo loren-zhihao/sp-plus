@@ -73,6 +73,12 @@ public class GenUtil {
 			SUtil.outFile(utilPath, utilContent);
 			System.out.println(t.getModelName() + "Util 写入成功：\t\t" + utilPath);
 
+			// AuthConst
+			String authConstPath = t.getServerIoPath() + t.getMkNameBig() + "AuthConst.java";	// 路径
+			String authConstContent = FreeMarkerUtil.getResult("mybatis/AuthConst.ftl", "t", t);		// 内容
+			SUtil.outFile(authConstPath, authConstContent);
+			System.out.println(t.getModelName() + "AuthConst 写入成功：\t\t" + utilPath);
+
 			// 多打印一行，模块之间有个间隔 
 			System.out.println();	
 		}
@@ -118,6 +124,39 @@ public class GenUtil {
 			System.out.println("FC.java 依赖清单写入成功：\t\t" + FCPath);
 		}
 		System.out.println("\n");
+	}
+
+	//开始生成vue代码
+	public static void doOutVue() {
+		// 模块
+		for (DbTable t : GenCfgManager.cfg.tableList) {
+			// 查
+			String xxxListPath = t.getAdminIoPath() + t.getKebabName() + "-list.vue";			// 路径
+			String xxxListContent = FreeMarkerUtil.getResult("vue/xxx-list.ftl", "t", t);			// 内容
+			SUtil.outFile(xxxListPath, xxxListContent);
+			System.out.println(t.getKebabName() + "-list.vue 写入成功：\t\t\t" + xxxListPath);
+
+			// 增
+			String xxxAddPath = t.getAdminIoPath() + t.getKebabName() + "-add.vue";			// 路径
+			String xxxAddContent = FreeMarkerUtil.getResult("vue/xxx-add.ftl", "t", t);			// 内容
+			SUtil.outFile(xxxAddPath, xxxAddContent);
+			System.out.println(t.getKebabName() + "-add.vue 写入成功：\t\t\t" + xxxAddPath);
+
+			// 详情
+			String xxxInfoPath = t.getAdminIoPath() + t.getKebabName() + "-info.vue";			// 路径
+			String xxxInfoContent = FreeMarkerUtil.getResult("vue/xxx-info.ftl", "t", t);			// 内容
+			SUtil.outFile(xxxInfoPath, xxxInfoContent);
+			System.out.println(t.getKebabName() + "-info.vue 写入成功：\t\t\t" + xxxInfoPath);
+
+			// 多打印一行，模块之间有个间隔
+			System.out.println();
+		}
+
+		// menu-list.js 菜单列表
+		String menuListPath = GenCfgManager.cfg.getAdminProjectPath() + "router"+ File.separator+"index.js";						// 路径
+		String menuListContent = FreeMarkerUtil.getResult("vue/router.ftl", "abc", 123);		// 内容
+		SUtil.outFile(menuListPath, menuListContent);
+		System.out.println("router.js 菜单列表, 写入成功：\t\t" + menuListPath);
 	}
 	
 	
