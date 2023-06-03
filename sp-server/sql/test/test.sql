@@ -38,6 +38,10 @@ CREATE TABLE password(
     PRIMARY KEY (id)
 )  COMMENT = '密码表';
 
+ALTER TABLE `sp-dev`.category ADD user_id BIGINT NOT NULL COMMENT '用户id';
+ALTER TABLE `sp-dev`.category CHANGE user_id user_id BIGINT NOT NULL COMMENT '用户id' AFTER id;
+
+
 INSERT INTO `sp-dev`.sp_role_permission
 (id, role_id, permission_code, create_time)
 VALUES(18, 1, 'user', '2023-05-28 09:54:11');
@@ -62,6 +66,9 @@ INSERT INTO `sp-dev`.sp_role_permission
 VALUES(null, 1, 'category-add', '2023-05-28 09:54:11');
 INSERT INTO `sp-dev`.sp_role_permission
 (id, role_id, permission_code, create_time)
+VALUES(null, 1, 'category-update', '2023-05-28 09:54:11');
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
 VALUES(null, 1, 'category-list', '2023-05-28 12:57:59');
 INSERT INTO `sp-dev`.sp_role_permission
 (id, role_id, permission_code, create_time)
@@ -81,6 +88,9 @@ INSERT INTO `sp-dev`.sp_role_permission
 VALUES(null, 1, 'password-add', '2023-05-28 09:54:11');
 INSERT INTO `sp-dev`.sp_role_permission
 (id, role_id, permission_code, create_time)
+VALUES(null, 1, 'password-update', '2023-05-28 09:54:11');
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
 VALUES(null, 1, 'password-list', '2023-05-28 12:57:59');
 INSERT INTO `sp-dev`.sp_role_permission
 (id, role_id, permission_code, create_time)
@@ -91,3 +101,32 @@ VALUES(null, 1, 'password-delete', '2023-05-28 12:57:59');
 INSERT INTO `sp-dev`.sp_role_permission
 (id, role_id, permission_code, create_time)
 VALUES(null, 1, 'password-deleteByIds', '2023-05-28 12:57:59');
+
+ALTER TABLE `sp-dev`.sp_role MODIFY COLUMN create_time DATETIME DEFAULT CURRENT_TIMESTAMP  NULL COMMENT '创建时间';
+ALTER TABLE `sp-dev`.sp_role_permission MODIFY COLUMN create_time DATETIME DEFAULT CURRENT_TIMESTAMP  NULL COMMENT '创建时间';
+
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
+VALUES(null, 3, 'category-add', '2023-05-28 09:54:11');
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
+VALUES(null, 3, 'category-update', '2023-05-28 09:54:11');
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
+VALUES(null, 3, 'category-delete', '2023-05-28 12:57:59');
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
+VALUES(null, 3, 'category-deleteByIds', '2023-05-28 12:57:59');
+
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
+VALUES(null, 3, 'password-add', '2023-05-28 09:54:11');
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
+VALUES(null, 3, 'password-update', '2023-05-28 09:54:11');
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
+VALUES(null, 3, 'password-delete', '2023-05-28 12:57:59');
+INSERT INTO `sp-dev`.sp_role_permission
+(id, role_id, permission_code, create_time)
+VALUES(null, 3, 'password-deleteByIds', '2023-05-28 12:57:59');
