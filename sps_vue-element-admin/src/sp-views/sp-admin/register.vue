@@ -23,29 +23,21 @@
             </h3>
             <el-form size="small" label-position="left" label-width="0px">
               <el-form-item>
-                <el-input v-model="m.key" prefix-icon="el-icon-user" placeholder="请输入账号" size="medium" />
+                <el-input v-model="m.name" prefix-icon="el-icon-user" placeholder="请输入账号" size="medium" />
+              </el-form-item>
+              <el-form-item>
+                <el-input v-model="m.phone" prefix-icon="el-icon-user" placeholder="请输入手机号" size="medium" />
               </el-form-item>
               <el-form-item>
                 <el-input v-model="m.password" prefix-icon="el-icon-unlock" type="password" placeholder="请输入密码" size="medium" @keyup.native.enter="ok()" />
               </el-form-item>
               <el-form-item>
-                <span style="color: #999;"> <el-checkbox v-model="m.remember">记住我</el-checkbox></span>
-                <!-- <span style="float: right; color: #999;">测试账号：sa/123456</span> -->
-                <el-button type="Default" size="medium" style="width: 100%;" @click="register()">注册</el-button>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" size="medium" style="width: 100%;" @click="ok()">登录</el-button>
+                <el-button type="primary" size="medium" style="width: 100%;" @click="ok()">注册</el-button>
               </el-form-item>
             </el-form>
           </div>
         </div>
       </div>
-
-      <!-- 底部 版权 -->
-      <div style="position: absolute; bottom: 40px; width: 100%; text-align: center; color: #666;">
-        Copyright ©2022 {{$root.title}} | xx 市 xx 网络科技有限公司 - 提供技术支持
-      </div>
-
     </div>
 
   </div>
@@ -57,14 +49,15 @@ import router from '@/router'
 import sa from "@/sa-frame/sa";
 
 export default {
-  name: 'sa-login',
+  name: 'register',
   data() {
     return {
       show: false, // 是否显示
       m: {
-        key: '',
-        password: '',
-        remember: false
+        id: 0,
+        name: '',
+        phone: '',
+        password: ''
       }
     }
   },
@@ -86,62 +79,26 @@ export default {
     }.bind(this), 0);
   },
   methods: {
-    // 点击确定
     ok() {
       // 表单验证
-      if (this.m.key === '' || this.m.password === '') {
+      if (this.m.name === '' || this.m.phone === '' || this.m.password === '') {
         return this.sa.error2('请输入完整');
       }
       // 请求后台
-      this.sa.ajax('/AccAdmin/doLogin', this.m, function(res){
+      this.sa.ajax('/admin/register', this.m, function(res){
         // 写入token
-        if (res.data.tokenInfo) {
-          if(this.m.remember) {
-            sessionStorage.removeItem('satoken');
-            localStorage.setItem('satoken', res.data.tokenInfo.tokenValue);
-          } else {
-            localStorage.removeItem('satoken');
-            sessionStorage.setItem('satoken', res.data.tokenInfo.tokenValue);
-          }
-        }
-
-        // 写入当前账号信息
-        sa.$sys.setCurrUser(res.data.admin);
-        this.$store.dispatch('user/setNameAvatar', {
-          name: res.data.admin.name,
-          avatar: res.data.admin.avatar
-        })
-
-        // 写入权限码
-        sa.setAuth(res.data.perList);
-        this.$store.commit('permission/setPerCodes', res.data.perList);
-
-        // 配置信息
-        sa.$sys.setAppCfg(res.data.appCfg);
-
-        // 打个招呼，进入 index
-        this.sa.msg('欢迎你：' + res.data.admin.name);
+        // this.sa.alert('注册成功');
+        // 这里可以将用户输入的账号密码等信息提交到服务器进行注册处理
         setTimeout(function() {
           // this.$router.push('/');
-          this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+          this.$router.push({ path: this.redirect || '/login', query: this.otherQuery })
         }.bind(this), 800);
-      }.bind(this));
+     }.bind(this));
     },
-    register(){
-      this.$router.push('/register');
-    },
-
-    getOtherQuery(query) {
-      return Object.keys(query).reduce((acc, cur) => {
-        if (cur !== 'redirect') {
-          acc[cur] = query[cur]
-        }
-        return acc
-      }, {})
-    }
-  }
+ }
 }
 </script>
+
 
 <style scoped>
 /* 视图盒子 */

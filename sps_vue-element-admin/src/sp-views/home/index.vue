@@ -8,11 +8,11 @@
             <img src="@/assets/logo.png" class="admin-logo">
           </div>
           <h1 style="margin-top: 30px; font-size: 30px;">{{$root.title}}系统</h1>
-          <div>
+          <!-- <div>
             <el-link type="primary" href="https://gitee.com/click33/sa-plus" target="_blank">
               https://gitee.com/click33/sa-plus
             </el-link>
-          </div>
+          </div> -->
           <div style="margin-top: 30px;">
             当前为Vue单页版本：vue2、element-ui、js、vue-cli、vuex、vue-router、axios、xlsx
           </div>

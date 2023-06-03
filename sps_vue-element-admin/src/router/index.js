@@ -53,6 +53,12 @@ export const constantRoutes = [
       }
     ]
   },
+  //注册页面
+  {
+    path: '/register',
+    component: () => import('@/sp-views/sp-admin/register'),
+    hidden: true
+  },
   // 登录页
   {
     path: '/login',
@@ -238,7 +244,7 @@ export const asyncRoutes = [
 		path: '/category',
 		component: Layout,
         meta: {
-          title: '密码分类表',
+          title: '账号分类',
           icon: 'el-icon-folder-opened'
         },
 		children: [
@@ -246,20 +252,14 @@ export const asyncRoutes = [
                 name: 'category-list',
                 path: 'category-list',
                 component: () => import('@/sp-views/category/category-list.vue'),
-                meta: { title: '密码分类表-列表' }
+                meta: { title: '账号分类' }
             },
-            {
-                name: 'category-add',
-                path: 'category-add',
-                component: () => import('@/sp-views/category/category-add.vue'),
-                meta: { title: '密码分类表-新增' }
-            },
-            {
-                name: 'category-info',
-                path: 'category-info',
-                component: () => import('@/sp-views/category/category-info.vue'),
-                meta: { title: '密码分类表-详情' }
-            },
+            // {
+            //     name: 'category-add',
+            //     path: 'category-add',
+            //     component: () => import('@/sp-views/category/category-add.vue'),
+            //     meta: { title: '密码分类表-新增' }
+            // },
 		]
 	},
 	{
@@ -267,7 +267,7 @@ export const asyncRoutes = [
 		path: '/password',
 		component: Layout,
         meta: {
-          title: '密码表',
+          title: '账号密码管理',
           icon: 'el-icon-folder-opened'
         },
 		children: [
@@ -275,20 +275,14 @@ export const asyncRoutes = [
                 name: 'password-list',
                 path: 'password-list',
                 component: () => import('@/sp-views/password/password-list.vue'),
-                meta: { title: '密码表-列表' }
+                meta: { title: '账号密码管理' }
             },
-            {
-                name: 'password-add',
-                path: 'password-add',
-                component: () => import('@/sp-views/password/password-add.vue'),
-                meta: { title: '密码表-新增' }
-            },
-            {
-                name: 'password-info',
-                path: 'password-info',
-                component: () => import('@/sp-views/password/password-info.vue'),
-                meta: { title: '密码表-详情' }
-            },
+            // {
+            //     name: 'password-add',
+            //     path: 'password-add',
+            //     component: () => import('@/sp-views/password/password-add.vue'),
+            //     meta: { title: '密码表-新增' }
+            // },
 		]
 	},
 

@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Sa-Plus 后台管理',
+  title: '账号密码管理系统',
 
   /**
    * @type {boolean} true | false

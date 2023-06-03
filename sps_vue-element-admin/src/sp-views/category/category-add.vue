@@ -10,7 +10,7 @@
           <el-input type="password" />
         </div>
         <!-- 表单 -->
-        <sa-item v-model="m.username" type="text" name="分类名" br />
+        <sa-item v-model="m.name" type="text" name="分类名" br />
         <sa-item name="" br class="s-ok">
           <el-button type="primary" icon="el-icon-plus" @click="ok()">保存</el-button>
         </sa-item>
@@ -52,7 +52,7 @@ export default {
 
       // 添加
       sa.ajax('/category/add', m, function(res) {
-        sa.alert('添加成功, 账号id为：' + res.data, function(){
+        sa.alert('添加成功, 分类id为：' + res.data, function(){
           this.m = this.crateModel();
           if (this.id != 0) {
             sa.closeModel();
