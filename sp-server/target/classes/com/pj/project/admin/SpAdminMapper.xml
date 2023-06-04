@@ -104,6 +104,8 @@
 		where id = #{id}
 	</update>
 	
-
+	<select id="existsAccount" resultType="int">
+		select count(*) from sp_admin where name = #{name} or phone = #{phone};
+	</select>
 
 </mapper>
