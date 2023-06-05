@@ -23,7 +23,7 @@
             </h3>
             <el-form size="small" label-position="left" label-width="0px">
               <el-form-item>
-                <el-input v-model="m.key" prefix-icon="el-icon-user" placeholder="请输入账号" size="medium" />
+                <el-input v-model="m.key" prefix-icon="el-icon-user" placeholder="请输入昵称或手机号" size="medium" />
               </el-form-item>
               <el-form-item>
                 <el-input v-model="m.password" prefix-icon="el-icon-unlock" type="password" placeholder="请输入密码" size="medium" @keyup.native.enter="ok()" />

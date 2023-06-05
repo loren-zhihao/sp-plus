@@ -21,6 +21,10 @@
               <img src="@/assets/logo.png" class="logo">
               <span>{{$root.title}}</span>
             </h3>
+            <el-button class="back-button" @click="goBack()">
+              <i class="el-icon-arrow-left">返回</i>
+            </el-button> 
+            <!-- 其他注册页面内容 -->
             <el-form size="small" label-position="left" label-width="0px">
               <el-form-item>
                 <el-input v-model="m.name" prefix-icon="el-icon-user" placeholder="请输入账号" size="medium" />
@@ -33,6 +37,9 @@
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" size="medium" style="width: 100%;" @click="ok()">注册</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="Default" size="medium" style="width: 100%;" @click="login()">登录</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -95,6 +102,13 @@ export default {
         }.bind(this), 800);
      }.bind(this));
     },
+    login(){
+      this.$router.push('/login');
+    },
+     // 返回上一页
+    goBack() {
+      this.$router.push('/login');
+    }
  }
 }
 </script>
@@ -132,10 +146,18 @@ export default {
   margin: auto;
   padding-bottom: 100px;
 }
-
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 18px;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
 /* 表单 */
 .from-box{padding: 45px 50px 25px; background-color: rgba(255,255,255,0.5); border: 1px #e5e5e5 solid;}
-.from-box{ border-radius: 1px; /*box-shadow: 1px 1px 2px #666;*/}
+.from-box{ border-radius: 1px; /*box-shadow: 1px 1px 2px #666;*/;position: relative;}
 .from-title{font-size: 24px; color: #000; margin-bottom: 30px; text-align: center; position: relative; left: -15px;}
 
 .logo{width: 50px; height: 50px; vertical-align: middle; margin-right: 15px;}
