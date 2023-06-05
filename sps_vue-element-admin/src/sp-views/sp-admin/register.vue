@@ -27,7 +27,7 @@
             <!-- 其他注册页面内容 -->
             <el-form size="small" label-position="left" label-width="0px">
               <el-form-item>
-                <el-input v-model="m.name" prefix-icon="el-icon-user" placeholder="请输入账号" size="medium" />
+                <el-input v-model="m.name" prefix-icon="el-icon-user" placeholder="请输入昵称" size="medium" />
               </el-form-item>
               <el-form-item>
                 <el-input v-model="m.phone" prefix-icon="el-icon-user" placeholder="请输入手机号" size="medium" />
@@ -37,9 +37,6 @@
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" size="medium" style="width: 100%;" @click="ok()">注册</el-button>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="Default" size="medium" style="width: 100%;" @click="login()">登录</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -101,9 +98,6 @@ export default {
           this.$router.push({ path: this.redirect || '/login', query: this.otherQuery })
         }.bind(this), 800);
      }.bind(this));
-    },
-    login(){
-      this.$router.push('/login');
     },
      // 返回上一页
     goBack() {
