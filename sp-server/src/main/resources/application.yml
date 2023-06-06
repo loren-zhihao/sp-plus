@@ -71,5 +71,8 @@ mybatis-plus:
         # 即使属性为null, 也要映射 
         call-setters-on-nulls: true
         
-        
+server:
+    tomcat:
+        keep-alive-timeout: 60000
+
         
