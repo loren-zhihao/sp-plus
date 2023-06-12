@@ -38,14 +38,20 @@
               </el-form-item>
             </el-form>
           </div>
+          <div class="auth-bar">
+            <div class="auth-bar-inner">
+              <div class="auth-bar-text">使用以下方式登录</div>
+              <button class="wechat-btn"><img src="../../assets/wechat.png" alt="微信图标">微信登录</button>
+              <button class="alipay-btn"><img src="../../assets/alipay.png" alt="支付宝图标">支付宝登录</button>
+            </div>
+          </div>
+ 
+        <!-- 底部 版权 -->
+        <div style="position: absolute; bottom: 40px; width: 100%; text-align: center; color: #666;">
+          Copyright ©2022 {{$root.title}} | xx 市 xx 网络科技有限公司 - 提供技术支持
+        </div>
         </div>
       </div>
-
-      <!-- 底部 版权 -->
-      <div style="position: absolute; bottom: 40px; width: 100%; text-align: center; color: #666;">
-        Copyright ©2022 {{$root.title}} | xx 市 xx 网络科技有限公司 - 提供技术支持
-      </div>
-
     </div>
 
   </div>
@@ -157,6 +163,66 @@ export default {
   background-color: rgb(250, 254, 255);
   pointer-events: none;
 }
+
+/* 全局样式 */
+body {
+  margin: 0;
+}
+
+/* 横幅样式 */
+.auth-bar {
+  display: flex;
+  justify-content: center;
+  background-color: #f5f5f7;
+  padding: 10px 0;
+}
+
+.auth-bar-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.auth-bar-text {
+  font-size: 14px;
+  color: #8590a6;
+  margin-right: 20px;
+}
+
+/* 微信登录按钮样式 */
+.wechat-btn,
+.alipay-btn {
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #fff;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.wechat-btn {
+  background-color: #1aad19;
+}
+
+.alipay-btn {
+  background-color: #00a0e9;
+}
+
+.wechat-btn:hover,
+.alipay-btn:hover {
+  filter: brightness(110%);
+}
+
+.wechat-btn img,
+.alipay-btn img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+
 .for-box{
   position: fixed;
   width: 100%;
@@ -171,7 +237,6 @@ export default {
 }
 .login-box-2{
   width: 450px;
-  max-width: 90vw;
   margin: auto;
   padding-bottom: 100px;
 }
