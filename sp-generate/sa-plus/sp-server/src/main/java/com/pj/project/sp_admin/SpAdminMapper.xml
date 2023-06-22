@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.sp_admin.SpAdminMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		sp_admin (id, name, avatar, password, pw, phone, role_id, status, create_by_aid, create_time, login_time, login_ip, login_count, user_type) 
+		values (#{id}, #{name}, #{avatar}, #{password}, #{pw}, #{phone}, #{roleId}, #{status}, #{createByAid}, #{createTime}, #{loginTime}, #{loginIp}, #{loginCount}, #{userType}) 
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from sp_admin 
+		where id = #{id}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update sp_admin set
+		id = #{id}, 
+		name = #{name}, 
+		avatar = #{avatar}, 
+		password = #{password}, 
+		pw = #{pw}, 
+		phone = #{phone}, 
+		role_id = #{roleId}, 
+		status = #{status}, 
+		create_by_aid = #{createByAid}, 
+		create_time = #{createTime}, 
+		login_time = #{loginTime}, 
+		login_ip = #{loginIp}, 
+		login_count = #{loginCount}, 
+		user_type = #{userType}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, name, avatar, password, pw, phone, role_id, status, create_by_aid, create_time, login_time, login_ip, login_count, user_type from sp_admin  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.sp_admin.SpAdmin">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="avatar" column="avatar" />
+		<result property="password" column="password" />
+		<result property="pw" column="pw" />
+		<result property="phone" column="phone" />
+		<result property="roleId" column="role_id" />
+		<result property="status" column="status" />
+		<result property="createByAid" column="create_by_aid" />
+		<result property="createTime" column="create_time" />
+		<result property="loginTime" column="login_time" />
+		<result property="loginIp" column="login_ip" />
+		<result property="loginCount" column="login_count" />
+		<result property="userType" column="user_type" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from sp_admin 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("name") '> and name = #{name} </if>
+			<if test=' this.has("avatar") '> and avatar = #{avatar} </if>
+			<if test=' this.has("password") '> and password = #{password} </if>
+			<if test=' this.has("pw") '> and pw = #{pw} </if>
+			<if test=' this.has("phone") '> and phone = #{phone} </if>
+			<if test=' this.has("roleId") '> and role_id = #{roleId} </if>
+			<if test=' this.has("status") '> and status = #{status} </if>
+			<if test=' this.has("createByAid") '> and create_by_aid = #{createByAid} </if>
+			<if test=' this.has("createTime") '> and create_time = #{createTime} </if>
+			<if test=' this.has("loginTime") '> and login_time = #{loginTime} </if>
+			<if test=' this.has("loginIp") '> and login_ip = #{loginIp} </if>
+			<if test=' this.has("loginCount") '> and login_count = #{loginCount} </if>
+			<if test=' this.has("userType") '> and user_type = #{userType} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> name desc </when>
+			<when test='sortType == 3'> avatar desc </when>
+			<when test='sortType == 4'> password desc </when>
+			<when test='sortType == 5'> pw desc </when>
+			<when test='sortType == 6'> phone desc </when>
+			<when test='sortType == 7'> role_id desc </when>
+			<when test='sortType == 8'> status desc </when>
+			<when test='sortType == 9'> create_by_aid desc </when>
+			<when test='sortType == 10'> create_time desc </when>
+			<when test='sortType == 11'> login_time desc </when>
+			<when test='sortType == 12'> login_ip desc </when>
+			<when test='sortType == 13'> login_count desc </when>
+			<when test='sortType == 14'> user_type desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

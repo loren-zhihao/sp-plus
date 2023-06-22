@@ -3,10 +3,10 @@ package com.pj.project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.pj.project.category.CategoryMapper;
-import com.pj.project.password.PasswordMapper;
-import com.pj.project.category.CategoryService;
-import com.pj.project.password.PasswordService;
+import com.pj.project.sp_admin.SpAdminMapper;
+import com.pj.project.sp_vedio.SpVedioMapper;
+import com.pj.project.sp_admin.SpAdminService;
+import com.pj.project.sp_vedio.SpVedioService;
 import com.pj.project4sp.public4mapper.PublicMapper;
 import com.pj.project4sp.public4mapper.PublicService;
 
@@ -18,16 +18,16 @@ public class FC {
 
 	// ======================================== 所有Mapper ============================================== 
 
-	public static CategoryMapper categoryMapper;		// Mapper：密码分类表
-	public static PasswordMapper passwordMapper;		// Mapper：密码表
+	public static SpAdminMapper spAdminMapper;		// Mapper：系统管理员表
+	public static SpVedioMapper spVedioMapper;		// Mapper：视频表
 	public static PublicMapper publicMapper;					// Mapper: 公共Mapper 
 
 
 
 	// ======================================== 所有Service ============================================== 
 
-	public static CategoryService categoryService;		// Service：密码分类表
-	public static PasswordService passwordService;		// Service：密码表
+	public static SpAdminService spAdminService;		// Service：系统管理员表
+	public static SpVedioService spVedioService;		// Service：视频表
 	public static PublicService publicService;						// Service：公共service
 
 
@@ -37,20 +37,20 @@ public class FC {
 	// 注入 
 	@Autowired
 	public void setBean(
-			CategoryMapper categoryMapper, 
-			PasswordMapper passwordMapper, 
+			SpAdminMapper spAdminMapper, 
+			SpVedioMapper spVedioMapper, 
 			PublicMapper publicMapper,
 			
-			CategoryService categoryService, 
-			PasswordService passwordService, 
+			SpAdminService spAdminService, 
+			SpVedioService spVedioService, 
 			PublicService publicService
 			) {
-			FC.categoryMapper = categoryMapper;
-			FC.passwordMapper = passwordMapper;
+			FC.spAdminMapper = spAdminMapper;
+			FC.spVedioMapper = spVedioMapper;
 			FC.publicMapper = publicMapper;
 			
-			FC.categoryService = categoryService;
-			FC.passwordService = passwordService;
+			FC.spAdminService = spAdminService;
+			FC.spVedioService = spVedioService;
 			FC.publicService = publicService;
 	}
 

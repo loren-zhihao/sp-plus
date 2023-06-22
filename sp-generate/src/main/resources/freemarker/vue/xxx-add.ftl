@@ -77,7 +77,7 @@ export default {
   },
   created: function() {
     // 加载角色
-    sa.ajax('/${t.getKebabName()}/getList', function(res) {
+    sa.ajax('/${t.varName}/getList', function(res) {
       this.roleList = res.data;	// 数据
     }.bind(this), { msg: null });
   },
@@ -86,11 +86,11 @@ export default {
       return {
       <#list t.t12List as c>
           <#if c.columnType == 'bigint'>
-            ${c.columnComment3}: 0,
+            "${c.fieldName}": 0,
           <#elseif c.foType == 'text'>
-            ${c.columnComment3}: "",
+            "${c.fieldName}": "",
           <#else>
-            ${c.columnComment3}: ""
+            "${c.fieldName}": ""
           </#if>
       </#list>
       }
@@ -102,7 +102,7 @@ export default {
       sa.checkNull(m.name, '请输入昵称');
 
       // 添加
-      sa.ajax('/${t.getKebabName()}/add', m, function(res) {
+      sa.ajax('/${t.varName}/add', m, function(res) {
         sa.alert('添加成功, 账号id为：' + res.data, function(){
           this.m = this.crateModel();
           if (this.id != 0) {

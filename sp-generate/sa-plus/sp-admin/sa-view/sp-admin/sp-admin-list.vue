@@ -19,56 +19,28 @@
       <sa-item type="fast-btn" show="add,get,delete,export,reset" />
       <!-- ------------- 数据列表 ------------- -->
       <el-table ref="data-table" class="data-table" :data="dataList">
-        <sa-td type="selection"></sa-td>
-        <#list t.tallList as c>
-        	<#if c.istx('no-show')>
-        	<#elseif c.foType == 'logic-delete'>
-        	<#elseif c.istx('click')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="link-btn" @click="s => sa.showIframe(' id = ' + s.row.${c.getClickCatKeyColumn()} + '  详细信息', '../${c.getClickCatTableKebabName()}/${c.getClickCatTableKebabName()}-info.html?id=' + s.row.${c.getClickCatKeyColumn()})"></el-table-column>
-        	<#elseif c.istx('switch')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="switch" :jv="${c.getJvJson()}" @change="s => update${c.fieldNameFnCat}(s.row)"></el-table-column>
-        	<#elseif c.istx('fast-update')>
-        					<el-table-column label="${c.columnComment3}">
-        						<template slot-scope="s">
-        							<span>{{s.row.${c.fieldName}}}</span>
-        							<el-button type="text" @click="update${c.fieldNameFnCat}(s.row)">改</el-button>
-        						</template>
-        					</el-table-column>
-        	<#elseif c.isFoType('text', 'fk-s', 'fk-p')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" ></el-table-column>
-        	<#elseif c.isFoType('textarea')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="textarea"></el-table-column>
-        	<#elseif c.isFoType('num')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="num"></el-table-column>
-        	<#elseif c.foType == 'richtext'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="richtext"></el-table-column>
-        	<#elseif c.isFoType('date', 'date-create', 'date-update')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="datetime"></el-table-column>
-        	<#elseif c.isFoType('time')>
-        					<el-table-column label="${c.columnComment3}" prop="${c.fieldName}" class-name="tc-date"></el-table-column>
-        	<#elseif c.foType == 'img'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="img"></el-table-column>
-        	<#elseif c.isFoType('audio', 'video', 'file')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="${c.foType}"></el-table-column>
-        	<#elseif c.foType == 'img-list'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="img-list"></el-table-column>
-        	<#elseif c.isFoType('audio-list', 'video-list', 'file-list', 'img-video-list')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="${c.foType}"></el-table-column>
-        	<#elseif c.foType == 'link'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="link"></el-table-column>
-        	<#elseif c.foType == 'enum'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="enum" :jv="${c.getJvJson()}"></el-table-column>
-        	<#else>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" ></el-table-column>
-        	</#if>
-        </#list>
-        					<el-table-column label="操作" fixed="right" <#if t.hasFt('tree', 'tree-lazy')> width="320px"<#else> width="240px"</#if>>
+        <sa-td type="selection" />
+
+        <el-table class="data-table" ref="data-table" :data="dataList" >
+        					<sa-td type="selection"></sa-td>
+        					<sa-td name="id，--主键、自增" prop="id" ></sa-td>
+        					<sa-td name="admin名称" prop="name" ></sa-td>
+        					<sa-td name="头像地址" prop="avatar" ></sa-td>
+        					<sa-td name="密码" prop="password" ></sa-td>
+        					<sa-td name="明文密码" prop="pw" ></sa-td>
+        					<sa-td name="手机号" prop="phone" ></sa-td>
+        					<sa-td name="所属角色id" prop="roleId" ></sa-td>
+        					<sa-td name="账号状态" prop="status" ></sa-td>
+        					<sa-td name="创建自哪个管理员" prop="createByAid" ></sa-td>
+        					<sa-td name="创建时间" prop="createTime" ></sa-td>
+        					<sa-td name="上次登陆时间" prop="loginTime" ></sa-td>
+        					<sa-td name="上次登陆IP" prop="loginIp" ></sa-td>
+        					<sa-td name="登陆次数" prop="loginCount" ></sa-td>
+        					<sa-td name="会员类型0:普通1:会员" prop="userType" ></sa-td>
+        					<el-table-column label="操作" fixed="right"  width="240px">
         						<template slot-scope="s">
         							<el-button class="c-btn" type="success" icon="el-icon-view" @click="get(s.row)">查看</el-button>
         							<el-button class="c-btn" type="primary" icon="el-icon-edit" @click="update(s.row)">修改</el-button>
-        <#if t.hasFt('tree', 'tree-lazy')>
-        							<el-button class="c-btn" type="primary" icon="el-icon-plus" @click="addChildren(s.row)">添加子级</el-button>
-        </#if>
         							<el-button class="c-btn" type="danger" icon="el-icon-delete" @click="del(s.row)">删除</el-button>
         						</template>
         					</el-table-column>
@@ -100,7 +72,7 @@ export default {
     this.f5();
     sa.onInputEnter();	// 监听回车执行查询
     // 加载角色
-    sa.ajax('/${t.varName}/getList', function(res){
+    sa.ajax('/spAdmin/getList', function(res){
       this.roleList = res.data;	// 数据
     }.bind(this), { msg: null });
   },
@@ -108,7 +80,7 @@ export default {
 
     // 刷新
     f5: function() {
-      sa.ajax('/${t.varName}/getList', this.p, function(res) {
+      sa.ajax('/spAdmin/getList', this.p, function(res) {
         this.dataList = res.data;	// 数据
         this.dataCount = res.dataCount;
         sa.f5TableHeight();		// 刷新表格高度
@@ -117,11 +89,11 @@ export default {
     // 新增
     add: function() {
       console.log(123);
-      sa.showModel('管理员添加', () => import('./${t.kebabName}-add'), { id: -1 });
+      sa.showModel('管理员添加', () => import('./sp-admin-add'), { id: -1 });
     },
     // 查看详情
     getInfo: function(data) {
-      sa.showModel('管理员详情', () => import('./${t.kebabName}-info'), { id: data.id });
+      sa.showModel('管理员详情', () => import('./sp-admin-info'), { id: data.id });
     },
     // 查看 - 根据选中的
     getBySelect: function(data) {
@@ -135,7 +107,7 @@ export default {
     updateName: function(data) {
       sa.layer.prompt({ title: '修改账号名称' }, function(pass, index) {
         sa.layer.close(index);
-        sa.ajax('/${t.varName}/update', { id: data.id, name: pass }, function(res){
+        sa.ajax('/spAdmin/update', { id: data.id, name: pass }, function(res){
           data.name = pass;
           sa.msg('修改成功');
         })
@@ -148,7 +120,7 @@ export default {
         return sa.alert('不能自己封禁自己');
       }
       var is_ok = false;	// 记录是否成功
-      var ajax = sa.ajax('/${t.varName}/updateStatus', { adminId: data.id, status: data.status }, function(res) {
+      var ajax = sa.ajax('/spAdmin/updateStatus', { adminId: data.id, status: data.status }, function(res) {
         sa.msg('修改成功');
         is_ok = true;
       });
@@ -167,7 +139,7 @@ export default {
     // 删除
     del: function(data) {
       sa.confirm('是否删除，此操作不可撤销', function(){
-        sa.ajax('/${t.varName}/delete', { id: data.id }, function(res){
+        sa.ajax('/spAdmin/delete', { id: data.id }, function(res){
           sa.arrayDelete(this.dataList, data);
           sa.ok('删除成功');
           sa.f5TableHeight();		// 刷新表格高度
@@ -184,7 +156,7 @@ export default {
       }
       // 提交删除
       sa.confirm('是否批量删除选中数据？此操作不可撤销', function() {
-        sa.ajax('/${t.varName}/deleteByIds', { ids: ids.join(',') }, function(res) {
+        sa.ajax('/spAdmin/deleteByIds', { ids: ids.join(',') }, function(res) {
           sa.arrayDelete(this.dataList, selection);
           sa.ok('删除成功');
           sa.f5TableHeight();		// 刷新表格高度

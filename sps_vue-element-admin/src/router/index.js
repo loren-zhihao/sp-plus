@@ -285,6 +285,35 @@ export const asyncRoutes = [
             // },
 		]
 	},
+  {
+		name: 'spVedio',
+		path: '/spVedio',
+		component: Layout,
+        meta: {
+          title: '视频管理',
+          icon: 'el-icon-folder-opened'
+        },
+		children: [
+            {
+                name: 'spVedio-list',
+                path: 'spVedio-list',
+                component: () => import('@/sp-views/sp-vedio/sp-vedio-list.vue'),
+                meta: { title: '视频表-列表' }
+            },
+            {
+                name: 'spVedio-add',
+                path: 'spVedio-add',
+                component: () => import('@/sp-views/sp-vedio/sp-vedio-add.vue'),
+                meta: { title: '视频表-新增' }
+            },
+            {
+                name: 'spVedio-getById',
+                path: 'spVedio-getById',
+                component: () => import('@/sp-views/sp-vedio/sp-vedio-info.vue'),
+                meta: { title: '视频表-详情' }
+            },
+		]
+	},
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

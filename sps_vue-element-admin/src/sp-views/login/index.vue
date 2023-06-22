@@ -38,14 +38,6 @@
               </el-form-item>
             </el-form>
           </div>
-          <div class="auth-bar">
-            <div class="auth-bar-inner">
-              <div class="auth-bar-text">使用以下方式登录</div>
-              <button class="wechat-btn"><img src="../../assets/wechat.png" alt="微信图标">微信登录</button>
-              <button class="alipay-btn"><img src="../../assets/alipay.png" alt="支付宝图标">支付宝登录</button>
-            </div>
-          </div>
- 
         <!-- 底部 版权 -->
         <div style="position: absolute; bottom: 40px; width: 100%; text-align: center; color: #666;">
           Copyright ©2022 {{$root.title}} | xx 市 xx 网络科技有限公司 - 提供技术支持

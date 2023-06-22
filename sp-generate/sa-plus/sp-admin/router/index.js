@@ -1,60 +1,60 @@
 // 定义菜单列表
 var menuList =	[
 	{
-		name: 'category',
-		path: '/category',
+		name: 'sp-admin',
+		path: '/sp-admin',
 		component: Layout,
         meta: {
-          title: '密码分类表',
+          title: '系统管理员表',
           icon: 'el-icon-folder-opened'
         },
-		childList: [
+		children: [
             {
-                name: 'category-list',
-                path: 'category-list',
-                component: () => import('@/sp-views/category/category-list.vue'),
-                meta: { title: '密码分类表-列表' }
+                name: 'sp-admin-list',
+                path: 'sp-admin-list',
+                component: () => import('@/sp-views/sp-admin/sp-admin-list.vue'),
+                meta: { title: '系统管理员表-列表' }
             },
             {
-                name: 'category-add',
-                path: 'category-add',
-                component: () => import('@/sp-views/category/category-add.vue'),
-                meta: { title: '密码分类表-新增' }
+                name: 'sp-admin-add',
+                path: 'sp-admin-add',
+                component: () => import('@/sp-views/sp-admin/sp-admin-add.vue'),
+                meta: { title: '系统管理员表-新增' }
             },
             {
-                name: 'category-info',
-                path: 'category-info',
-                component: () => import('@/sp-views/category/category-info.vue'),
-                meta: { title: '密码分类表-详情' }
+                name: 'sp-admin-info',
+                path: 'sp-admin-info',
+                component: () => import('@/sp-views/sp-admin/sp-admin-info.vue'),
+                meta: { title: '系统管理员表-详情' }
             },
 		]
 	},
 	{
-		name: 'password',
-		path: '/password',
+		name: 'sp-vedio',
+		path: '/sp-vedio',
 		component: Layout,
         meta: {
-          title: '密码表',
+          title: '视频表',
           icon: 'el-icon-folder-opened'
         },
-		childList: [
+		children: [
             {
-                name: 'password-list',
-                path: 'password-list',
-                component: () => import('@/sp-views/password/password-list.vue'),
-                meta: { title: '密码表-列表' }
+                name: 'sp-vedio-list',
+                path: 'sp-vedio-list',
+                component: () => import('@/sp-views/sp-vedio/sp-vedio-list.vue'),
+                meta: { title: '视频表-列表' }
             },
             {
-                name: 'password-add',
-                path: 'password-add',
-                component: () => import('@/sp-views/password/password-add.vue'),
-                meta: { title: '密码表-新增' }
+                name: 'sp-vedio-add',
+                path: 'sp-vedio-add',
+                component: () => import('@/sp-views/sp-vedio/sp-vedio-add.vue'),
+                meta: { title: '视频表-新增' }
             },
             {
-                name: 'password-info',
-                path: 'password-info',
-                component: () => import('@/sp-views/password/password-info.vue'),
-                meta: { title: '密码表-详情' }
+                name: 'sp-vedio-info',
+                path: 'sp-vedio-info',
+                component: () => import('@/sp-views/sp-vedio/sp-vedio-info.vue'),
+                meta: { title: '视频表-详情' }
             },
 		]
 	},

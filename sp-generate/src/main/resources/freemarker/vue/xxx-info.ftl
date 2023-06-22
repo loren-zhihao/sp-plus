@@ -56,15 +56,9 @@ export default {
     }
   },
   created: function() {
-    if (this.id == 0 || this.id == sa.$sys.getCurrUser().id) {
-      sa.ajax('/${t.getKebabName()}/getByCurr', function(res) {
-        this.m = res.data;
-      }.bind(this));
-    } else {
-      sa.ajax('/${t.getKebabName()}/getById?id=' + this.id, function(res) {
-        this.m = res.data;
-      }.bind(this));
-    }
+    sa.ajax('/${t.varName}/getById?id=' + this.id, function(res) {
+            this.m = res.data;
+          }.bind(this));
   },
   methods: {
   }

@@ -66,10 +66,10 @@ public class SpGenerateApplication {
 			.setOutFC(true)					// 是否输出FC.java工厂类 
 			.setDefaultMeunIcon("el-icon-folder-opened")	// 生成后台管理页面时，默认的菜单图标
 			.setWebLibImportWay(2) 			// 前端js库导入方式(1=cdn导入, 2=本地导入[需将sa-admin附带js包复制到kj文件夹])
-			.addTableName("category")	// 添加要生成的表 (单个添加)
-			.addTableName("password")	// 添加要生成的表 (单个添加)
+			.addTableName("sp_admin")	// 添加要生成的表 (单个添加)
+			.addTableName("sp_vedio")	// 添加要生成的表 (单个添加)
 //			.addTableAll()		// 添加要生成的表 (一次性添加所有表)
-            .removeTableName("sp_role", "sp_role_permission", "sp_admin", "sp_admin_login", "sp_apilog", "sp_cfg")	// 移除这些内置的表，不必生成代码
+            .removeTableName("sp_role", "sp_role_permission", "sp_admin_login", "sp_apilog", "sp_cfg")	// 移除这些内置的表，不必生成代码
             ; 
 		
 		System.out.println("\n\n\n--------------------------------------------\n\n\n");

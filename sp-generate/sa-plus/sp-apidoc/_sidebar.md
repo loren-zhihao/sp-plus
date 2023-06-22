@@ -16,6 +16,6 @@
 	- [文件上传](/project-sp/file-upload)
 
 - **前台APP**
-	- [密码分类表](/project/category)
-	- [密码表](/project/password)
+	- [系统管理员表](/project/sp-admin)
+	- [视频表](/project/sp-vedio)
 
