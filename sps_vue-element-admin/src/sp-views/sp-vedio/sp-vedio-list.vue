@@ -4,19 +4,17 @@
       <!-- ------------- 检索参数 ------------- -->
       <h4 class="c-title">检索参数</h4>
       <el-form>
-        <sa-item v-model="p.type" type="text" name="类型" />
-        <el-button type="primary" icon="el-icon-search" @click="p.pageNo = 1; f5()">查询</el-button>
+        <el-form-item v-model="p.type" prop="type" label="类型" >
+          <el-select v-model="p.type" placeholder="请选择类型：" clearable >
+            <el-option v-for="(item, index) in typeOptions" :key="index" :label="item.label" :value="item.value"
+              :disabled="item.disabled"></el-option>
+          </el-select>
+          <el-button type="primary" icon="el-icon-search" @click="p.pageNo = 1; f5()">查询</el-button>
+        </el-form-item>
         <br>
-        <sa-item name="综合排序" class="s-radio-text">
-          <el-radio-group v-model="p.sortType">
-            <el-radio label="id">最近添加</el-radio>
-            <el-radio label="loginTime">最近登录</el-radio>
-            <el-radio label="loginCount">登录次数</el-radio>
-          </el-radio-group>
-        </sa-item>
       </el-form>
       <!-- ------------- 快捷按钮 ------------- -->
-      <sa-item type="fast-btn" show="add,get,delete,export,reset" />
+      <sa-item type="fast-btn" show="add,export,reset" />
       <!-- ------------- 数据列表 ------------- -->
       <el-table ref="data-table" class="data-table" :data="dataList">
         <sa-td type="selection"></sa-td>
@@ -26,14 +24,23 @@
             <a :href="scope.row.url" class="custom-link" target="_blank">{{ scope.row.url }}</a>
           </template>
         </el-table-column>
-
-        <el-table-column label="类型" prop="type" ></el-table-column>
-        <el-table-column label="状态" prop="status" ></el-table-column>
+        <el-table-column label="类型">
+          <template slot-scope="s">
+            <el-select v-model="s.row.typeName"  placeholder="请选择类型：">
+              <el-option v-for="(item, index) in typeOptions" :key="index" :label="item.label" :value="item.value"></el-option>
+            </el-select>
+          </template>
+        </el-table-column>
+        <el-table-column label="状态" prop="statusName" ></el-table-column>
         <el-table-column label="操作" fixed="right"  width="240px">
           <template slot-scope="s">
-            <el-button class="c-btn" type="success" icon="el-icon-view" @click="get(s.row)">查看</el-button>
-            <el-button class="c-btn" type="primary" icon="el-icon-edit" @click="update(s.row)">修改</el-button>
-            <el-button class="c-btn" type="danger" icon="el-icon-delete" @click="del(s.row)">删除</el-button>
+            <el-button type="text" @click="update(s.row)">
+              <span>修改</span>
+            </el-button>
+            <el-button class="c-btn" type="danger" icon="el-icon-edit-outline" @click="updateStatus(s.row)">
+              <span v-if="s.row.status === '1'">下架</span>
+              <span v-else="s.row.status === '2'">上架</span>
+            </el-button>
           </template>
         </el-table-column>
      </el-table>
@@ -51,9 +58,17 @@ export default {
     return {
       p: {		// 查询参数
         id: '',
+        type:"",
         pageNo: 1,
         pageSize: 10,
       },
+      typeOptions: [{
+        "label": "普通会员",
+        "value": 1
+      }, {
+        "label": "VIP会员",
+        "value": 2
+      }],
       dataCount: 0,
       dataList: [],	// 数据集合
     }
@@ -67,22 +82,17 @@ export default {
     }.bind(this), { msg: null });
   },
   methods: {
-
     // 刷新
     f5: function() {
-      sa.ajax('/spVedio/getList', this.p, function(res) {
+      sa.ajax('/spVedio/getList', this.p, (res) => {
         this.dataList = sa.listAU(res.data);
-        sa.f5TableHeight();		// 刷新表格高度
-      }.bind(this));
+        sa.f5TableHeight(); // 刷新表格高度
+      });
     },
     // 新增
     add: function() {
       console.log(123);
       sa.showModel('管理员添加', () => import('./sp-vedio-add'), { id: -1 });
-    },
-    // 查看详情
-    getInfo: function(data) {
-      sa.showModel('管理员详情', () => import('./sp-vedio-info'), { id: data.id });
     },
     // 查看 - 根据选中的
     getBySelect: function(data) {
@@ -92,33 +102,41 @@ export default {
       }
       this.getInfo(selection[0]);
     },
-    // 修改名称
-    updateName: function(data) {
-      sa.layer.prompt({ title: '修改账号名称' }, function(pass, index) {
-        sa.layer.close(index);
-        sa.ajax('/spVedio/update', { id: data.id, name: pass }, function(res){
-          data.name = pass;
-          sa.msg('修改成功');
-        })
+    update: function(data) {
+      console.log(JSON.stringify(data));
+      console.log(JSON.stringify(this.typeOptions));
+      this.typeOptions.forEach(e =>{
+        if(e.value === data.typeName){
+          data.type = e.value;
+        }
       });
+      sa.confirm('是否修改数据？', () => {
+        sa.ajax('/spVedio/update', data, (res) => {
+          sa.msg('修改成功');
+          this.$nextTick(() => {
+            data.is_update = false;
+          });
+        });
+      });
+    },
+    refreshData() {
+      // 调用列表查询方法来刷新数据
+      this.f5();
     },
     // 修改用户的状态
     updateStatus: function(data) {
-      if (data.id == sa.$sys.getCurrUser().id) {
-        data.status = 3 - data.status;
-        return sa.alert('不能自己封禁自己');
-      }
+      console.log("当前状态为:"+data.status);
+      var status = typeof(3 - data.status)!== 'undefined'? 3 - data.status : data.status; // 反转数据状态 1正常 2禁用 3
+      var statusName = (status === 1 ? "上架" : "下架");
       var is_ok = false;	// 记录是否成功
-      var ajax = sa.ajax('/spVedio/updateStatus', { adminId: data.id, status: data.status }, function(res) {
-        sa.msg('修改成功');
-        is_ok = true;
-      });
-      // 如果未能修改成功, 则回滚
-      sa.axios.all([ajax]).then(function(res) {
-        if (is_ok == false) {
-          data.status = 3 - data.status;
-        }
-      })
+      sa.confirm('是否'+statusName+"?", function(){
+        var ajax = sa.ajax('/spVedio/updateStatus', { id: data.id, status: status }, function(res) {
+          sa.msg(statusName+'成功');
+          is_ok = true;
+          this.refreshData(); // 重新刷新数据页面。。。。。。。。。。。。。。。。
+          sa.f5TableHeight();
+        }.bind(this));
+      }.bind(this));
       // $.when(ajax).done(function() {
       //   if(is_ok == false) {
       //     data.status = 3 - data.status;

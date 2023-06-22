@@ -306,12 +306,6 @@ export const asyncRoutes = [
                 component: () => import('@/sp-views/sp-vedio/sp-vedio-add.vue'),
                 meta: { title: '视频表-新增' }
             },
-            {
-                name: 'spVedio-getById',
-                path: 'spVedio-getById',
-                component: () => import('@/sp-views/sp-vedio/sp-vedio-info.vue'),
-                meta: { title: '视频表-详情' }
-            },
 		]
 	},
 
