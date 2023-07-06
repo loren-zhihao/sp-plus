@@ -13,7 +13,7 @@
       <!-- ------------- 数据列表 ------------- -->
       <el-table class="data-table" ref="data-table" :data="dataList" >
           <sa-td type="selection"></sa-td>
-          <el-table-column label="编号" prop="id" width="70px" />
+          <el-table-column label="编号" prop="id"/>
           <el-table-column label="分类名称">
             <template slot-scope="s">
               <el-input v-if="s.row.is_update" v-model="s.row.name" />

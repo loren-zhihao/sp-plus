@@ -16,6 +16,7 @@
 	- [文件上传](/project-sp/file-upload)
 
 - **前台APP**
-	- [系统管理员表](/project/sp-admin)
-	- [视频表](/project/sp-vedio)
+	- [类型表](/project/sp-semic-type)
+	- [半导体词典表](/project/sp-semic-dictionary)
+	- [半导体词典表的子集信息](/project/sp-semic-child-dictionary)
 

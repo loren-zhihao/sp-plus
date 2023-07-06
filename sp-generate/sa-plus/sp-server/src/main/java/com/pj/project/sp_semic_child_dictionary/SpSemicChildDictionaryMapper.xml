@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.sp_semic_child_dictionary.SpSemicChildDictionaryMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		sp_semic_child_dictionary (id, semic_dictionary_id, abbreviation, description, create_time, create_by, update_time, update_by, full_name) 
+		values (#{id}, #{semicDictionaryId}, #{abbreviation}, #{description}, #{createTime}, #{createBy}, #{updateTime}, #{updateBy}, #{fullName}) 
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from sp_semic_child_dictionary 
+		where id = #{id}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update sp_semic_child_dictionary set
+		id = #{id}, 
+		semic_dictionary_id = #{semicDictionaryId}, 
+		abbreviation = #{abbreviation}, 
+		description = #{description}, 
+		create_time = #{createTime}, 
+		create_by = #{createBy}, 
+		update_time = #{updateTime}, 
+		update_by = #{updateBy}, 
+		full_name = #{fullName}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, semic_dictionary_id, abbreviation, description, create_time, create_by, update_time, update_by, full_name from sp_semic_child_dictionary  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.sp_semic_child_dictionary.SpSemicChildDictionary">
+		<result property="id" column="id" />
+		<result property="semicDictionaryId" column="semic_dictionary_id" />
+		<result property="abbreviation" column="abbreviation" />
+		<result property="description" column="description" />
+		<result property="createTime" column="create_time" />
+		<result property="createBy" column="create_by" />
+		<result property="updateTime" column="update_time" />
+		<result property="updateBy" column="update_by" />
+		<result property="fullName" column="full_name" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from sp_semic_child_dictionary 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("semicDictionaryId") '> and semic_dictionary_id = #{semicDictionaryId} </if>
+			<if test=' this.has("abbreviation") '> and abbreviation = #{abbreviation} </if>
+			<if test=' this.has("description") '> and description = #{description} </if>
+			<if test=' this.has("createTime") '> and create_time = #{createTime} </if>
+			<if test=' this.has("createBy") '> and create_by = #{createBy} </if>
+			<if test=' this.has("updateTime") '> and update_time = #{updateTime} </if>
+			<if test=' this.has("updateBy") '> and update_by = #{updateBy} </if>
+			<if test=' this.has("fullName") '> and full_name = #{fullName} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> semic_dictionary_id desc </when>
+			<when test='sortType == 3'> abbreviation desc </when>
+			<when test='sortType == 4'> description desc </when>
+			<when test='sortType == 5'> create_time desc </when>
+			<when test='sortType == 6'> create_by desc </when>
+			<when test='sortType == 7'> update_time desc </when>
+			<when test='sortType == 8'> update_by desc </when>
+			<when test='sortType == 9'> full_name desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

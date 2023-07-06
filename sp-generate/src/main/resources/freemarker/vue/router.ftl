@@ -2,8 +2,8 @@
 var menuList =	[
 <#list cfg.tableList as t>
 	{
-		name: '${t.kebabName}',
-		path: '/${t.kebabName}',
+		name: '${t.varName}',
+		path: '/${t.varName}',
 		component: Layout,
         meta: {
           title: '${t.tableComment}',
@@ -11,20 +11,20 @@ var menuList =	[
         },
 		children: [
             {
-                name: '${t.kebabName}-list',
-                path: '${t.kebabName}-list',
+                name: '${t.varName}-list',
+                path: '${t.varName}-list',
                 component: () => import('@/sp-views/${t.kebabName}/${t.kebabName}-list.vue'),
                 meta: { title: '${t.tableComment}-列表' }
             },
             {
-                name: '${t.kebabName}-add',
-                path: '${t.kebabName}-add',
+                name: '${t.varName}-add',
+                path: '${t.varName}-add',
                 component: () => import('@/sp-views/${t.kebabName}/${t.kebabName}-add.vue'),
                 meta: { title: '${t.tableComment}-新增' }
             },
             {
-                name: '${t.kebabName}-info',
-                path: '${t.kebabName}-info',
+                name: '${t.varName}-info',
+                path: '${t.varName}-info',
                 component: () => import('@/sp-views/${t.kebabName}/${t.kebabName}-info.vue'),
                 meta: { title: '${t.tableComment}-详情' }
             },

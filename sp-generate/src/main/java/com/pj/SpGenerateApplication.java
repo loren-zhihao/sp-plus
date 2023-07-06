@@ -24,7 +24,7 @@ public class SpGenerateApplication {
         FlyConfig config = new FlyConfig();
 //        config.setDriverClassName("com.mysql.jdbc.Driver");
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        config.setUrl("jdbc:mysql://182.92.153.115:3306/sp-dev?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC");
+        config.setUrl("jdbc:mysql://localhost:3306/sp-dev?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC");
         config.setUsername("root");
         config.setPassword("123456");
         config.setPrintSql(true);		// 是否打印sql  
@@ -66,8 +66,10 @@ public class SpGenerateApplication {
 			.setOutFC(true)					// 是否输出FC.java工厂类 
 			.setDefaultMeunIcon("el-icon-folder-opened")	// 生成后台管理页面时，默认的菜单图标
 			.setWebLibImportWay(2) 			// 前端js库导入方式(1=cdn导入, 2=本地导入[需将sa-admin附带js包复制到kj文件夹])
-			.addTableName("sp_admin")	// 添加要生成的表 (单个添加)
-			.addTableName("sp_vedio")	// 添加要生成的表 (单个添加)
+			.addTableName("sp_semic_type")	// 添加要生成的表 (单个添加)
+			.addTableName("sp_semic_dictionary")	// 添加要生成的表 (单个添加)
+			.addTableName("sp_semic_child_dictionary")	// 添加要生成的表 (单个添加)
+//			.addTableName("sp_order")	// 添加要生成的表 (单个添加)
 //			.addTableAll()		// 添加要生成的表 (一次性添加所有表)
             .removeTableName("sp_role", "sp_role_permission", "sp_admin_login", "sp_apilog", "sp_cfg")	// 移除这些内置的表，不必生成代码
             ; 

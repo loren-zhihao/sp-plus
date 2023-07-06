@@ -24,54 +24,119 @@
         	<#if c.istx('no-show')>
         	<#elseif c.foType == 'logic-delete'>
         	<#elseif c.istx('click')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="link-btn" @click="s => sa.showIframe(' id = ' + s.row.${c.getClickCatKeyColumn()} + '  详细信息', '../${c.getClickCatTableKebabName()}/${c.getClickCatTableKebabName()}-info.html?id=' + s.row.${c.getClickCatKeyColumn()})"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="link-btn" @click="s => sa.showIframe(' id = ' + s.row.${c.getClickCatKeyColumn()} + '  详细信息', '../${c.getClickCatTableKebabName()}/${c.getClickCatTableKebabName()}-info.html?id=' + s.row.${c.getClickCatKeyColumn()})">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.istx('switch')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="switch" :jv="${c.getJvJson()}" @change="s => update${c.fieldNameFnCat}(s.row)"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="switch" :jv="${c.getJvJson()}" @change="s => update${c.fieldNameFnCat}(s.row)">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.istx('fast-update')>
-        					<el-table-column label="${c.columnComment3}">
-        						<template slot-scope="s">
-        							<span>{{s.row.${c.fieldName}}}</span>
-        							<el-button type="text" @click="update${c.fieldNameFnCat}(s.row)">改</el-button>
-        						</template>
-        					</el-table-column>
+                <el-table-column label="${c.columnComment3}">
+                    <template slot-scope="s">
+                        <span>{{s.row.${c.fieldName}}}</span>
+                        <el-button type="text" @click="update${c.fieldNameFnCat}(s.row)">改</el-button>
+                    </template>
+                </el-table-column>
         	<#elseif c.isFoType('text', 'fk-s', 'fk-p')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" ></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" >
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.isFoType('textarea')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="textarea"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="textarea">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.isFoType('num')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="num"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="num">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.foType == 'richtext'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="richtext"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="richtext">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.isFoType('date', 'date-create', 'date-update')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="datetime"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="datetime">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.isFoType('time')>
-        					<el-table-column label="${c.columnComment3}" prop="${c.fieldName}" class-name="tc-date"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" class-name="tc-date">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.foType == 'img'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="img"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="img"></el-table-column>
         	<#elseif c.isFoType('audio', 'video', 'file')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="${c.foType}"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="${c.foType}">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.foType == 'img-list'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="img-list"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="img-list">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.isFoType('audio-list', 'video-list', 'file-list', 'img-video-list')>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="${c.foType}"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="${c.foType}">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.foType == 'link'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="link"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="link">
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	<#elseif c.foType == 'enum'>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" type="enum" :jv="${c.getJvJson()}"></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" type="enum" :jv="${c.getJvJson()}"></el-table-column>
         	<#else>
-        					<el-table-column name="${c.columnComment3}" prop="${c.fieldName}" ></el-table-column>
+                <el-table-column label="${c.columnComment3}" prop="${c.fieldName}" >
+                    <template slot-scope="s">
+                      <el-input v-if="s.row.is_update" v-model="s.row.${c.fieldName}" />
+                      <span v-else>{{ s.row.${c.fieldName}}}</span>
+                    </template>
+                </el-table-column>
         	</#if>
         </#list>
-        					<el-table-column label="操作" fixed="right" <#if t.hasFt('tree', 'tree-lazy')> width="320px"<#else> width="240px"</#if>>
-        						<template slot-scope="s">
-        							<el-button class="c-btn" type="success" icon="el-icon-view" @click="get(s.row)">查看</el-button>
-        							<el-button class="c-btn" type="primary" icon="el-icon-edit" @click="update(s.row)">修改</el-button>
+            <el-table-column label="操作" fixed="right" <#if t.hasFt('tree', 'tree-lazy')> width="320px"<#else> width="240px"</#if>>
+                <template slot-scope="s">
+                    <el-button class="c-btn" type="success" icon="el-icon-view" @click="get(s.row)">查看</el-button>
+                    <el-button class="c-btn" type="primary" icon="el-icon-edit" @click="update(s.row)">修改</el-button>
         <#if t.hasFt('tree', 'tree-lazy')>
-        							<el-button class="c-btn" type="primary" icon="el-icon-plus" @click="addChildren(s.row)">添加子级</el-button>
+                    <   el-button class="c-btn" type="primary" icon="el-icon-plus" @click="addChildren(s.row)">添加子级</el-button>
         </#if>
-        							<el-button class="c-btn" type="danger" icon="el-icon-delete" @click="del(s.row)">删除</el-button>
-        						</template>
-        					</el-table-column>
+                    <el-button class="c-btn" type="danger" icon="el-icon-delete" @click="del(s.row)">删除</el-button>
+                </template>
+            </el-table-column>
      </el-table>
       <!-- 分页 -->
       <sa-item type="page" :curr.sync="p.pageNo" :size.sync="p.pageSize" :total="dataCount" @change="f5()" />
@@ -99,18 +164,13 @@ export default {
   created: function() {
     this.f5();
     sa.onInputEnter();	// 监听回车执行查询
-    // 加载角色
-    sa.ajax('/${t.varName}/getList', function(res){
-      this.roleList = res.data;	// 数据
-    }.bind(this), { msg: null });
   },
   methods: {
 
     // 刷新
     f5: function() {
       sa.ajax('/${t.varName}/getList', this.p, function(res) {
-        this.dataList = res.data;	// 数据
-        this.dataCount = res.dataCount;
+        this.dataList = sa.listAU(res.data);
         sa.f5TableHeight();		// 刷新表格高度
       }.bind(this));
     },
@@ -132,15 +192,19 @@ export default {
       this.getInfo(selection[0]);
     },
     // 修改名称
-    updateName: function(data) {
-      sa.layer.prompt({ title: '修改账号名称' }, function(pass, index) {
-        sa.layer.close(index);
-        sa.ajax('/${t.varName}/update', { id: data.id, name: pass }, function(res){
-          data.name = pass;
-          sa.msg('修改成功');
-        })
-      });
-    },
+    update: function(data) {
+          console.log(JSON.stringify(data));
+          if (data.is_update == false || data.is_update == 'undefined') {
+            data.is_update = true;
+          } else {
+            sa.confirm('是否修改数据？', function() {
+              sa.ajax('/${t.varName}/update', data, function(res) {
+                sa.ok('修改成功');
+                data.is_update = false;
+              })
+            })
+          }
+        },
     // 修改用户的状态
     updateStatus: function(data) {
       if (data.id == sa.$sys.getCurrUser().id) {

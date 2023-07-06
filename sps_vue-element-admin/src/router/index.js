@@ -308,7 +308,24 @@ export const asyncRoutes = [
             },
 		]
 	},
-
+  {
+		name: 'spProduct',
+		path: '/spProduct',
+		component: Layout,
+        meta: {
+          title: '商品信息表',
+          icon: 'el-icon-folder-opened'
+        },
+		children: [
+            {
+                name: 'spProduct-list',
+                path: 'spProduct-list',
+                component: () => import('@/sp-views/sp-product/sp-product-list.vue'),
+                meta: { title: '商品信息表-列表' }
+            },
+          
+		]
+	},
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

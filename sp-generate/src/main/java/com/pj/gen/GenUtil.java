@@ -79,6 +79,12 @@ public class GenUtil {
 			SUtil.outFile(authConstPath, authConstContent);
 			System.out.println(t.getModelName() + "AuthConst 写入成功：\t\t" + utilPath);
 
+			// Sql
+			String sqlPath = t.getServerIoPath() + t.getMkNameBig() + "role.sql";	// 路径
+			String sqlContent = FreeMarkerUtil.getResult("mybatis/Sql.ftl", "t", t);		// 内容
+			SUtil.outFile(sqlPath, sqlContent);
+			System.out.println(t.getModelName() + "Sql 写入成功：\t\t" + utilPath);
+
 			// 多打印一行，模块之间有个间隔 
 			System.out.println();	
 		}
